@@ -4,6 +4,12 @@ using System.Threading.Tasks;
 
 namespace StockExchange
 {
+    public interface IFinance
+    {
+        Task<IEnumerable<Quote>> GetQuotes(List<string> ticks);
+        Task<QuoteEvolution> GetQuoteEvolution(string tick, DateTime initialDate, DateTime finalDate, Periodicity periodicity);
+    }
+
     public class Quote
     {
         public string Tick { get; set; }
@@ -44,9 +50,10 @@ namespace StockExchange
         }
     }
 
-    public interface IFinance
+    public enum Periodicity
     {
-        Task<IEnumerable<Quote>> GetQuotes(List<string> ticks);
-        Task<QuoteEvolution> GetQuoteEvolution(string tick);
+        Daily,
+        Weekly,
+        Monthly
     }
 }

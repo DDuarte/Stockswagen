@@ -34,7 +34,7 @@ namespace StockExchange
                 return new List<Quote>();
 
             var tickNames = string.Join(",", ticks);
-            var uri = new Uri("http://download.finance.yahoo.com/d/quotes?f=sl1d1t1v&s=" + tickNames);
+            var uri = new Uri($"http://download.finance.yahoo.com/d/quotes?f=sl1d1t1v&s={tickNames}");
             var httpClient = new HttpClient();
 
             try
@@ -56,9 +56,18 @@ namespace StockExchange
             }
         }
 
-        public async Task<QuoteEvolution> GetQuoteEvolution(string tick)
+        public async Task<QuoteEvolution> GetQuoteEvolution(string tick, DateTime initialDate, DateTime finalDate, Periodicity periodicity)
         {
-            var uri = new Uri("http://ichart.finance.yahoo.com/table.txt?a=9&b=5&c=2015&d=9&e=19&f=2015&g=d&s=" + tick); // TODO: parametrize url
+            var a = initialDate.Month - 1;
+            var b = initialDate.Day;
+            var c = initialDate.Year;
+            var d = finalDate.Month - 1;
+            var e = finalDate.Day;
+            var f = finalDate.Year;
+            var g = GetPeriodicityValue(periodicity);
+
+
+            var uri = new Uri($"http://ichart.finance.yahoo.com/table.txt?a={a}&b={b}&c={c}&d={d}&e={e}&f={f}&g={g}&s={tick}");
             var httpClient = new HttpClient();
 
             try
@@ -67,7 +76,7 @@ namespace StockExchange
                 var csv = new CsvReader(new StringReader(result));
                 csv.Configuration.IgnoreHeaderWhiteSpace = true;
                 var quotes = csv.GetRecords<QuoteEvolution.Quote>().ToList();
-                return new QuoteEvolution { Tick = tick, Quotes = quotes };
+                return new QuoteEvolution {Tick = tick, Quotes = quotes};
             }
             catch (Exception ex)
             {
@@ -77,6 +86,21 @@ namespace StockExchange
             finally
             {
                 httpClient.Dispose();
+            }
+        }
+
+        private static char GetPeriodicityValue(Periodicity periodicity)
+        {
+            switch (periodicity)
+            {
+                case Periodicity.Daily:
+                    return 'd';
+                case Periodicity.Weekly:
+                    return 'w';
+                case Periodicity.Monthly:
+                    return 'm';
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(periodicity), periodicity, null);
             }
         }
     }
@@ -108,7 +132,7 @@ namespace StockExchange
                     dateTime = date + 'T' + time.ToUpper();
                 }
 
-                return (DateTime?)DateTime.ParseExact(dateTime, format, new CultureInfo("en-US"));
+                return (DateTime?) DateTime.ParseExact(dateTime, format, new CultureInfo("en-US"));
             });
             Map(m => m.Volume).Index(4); // .TypeConverter<NotAvailableTypeConverter<long?>>();
         }
