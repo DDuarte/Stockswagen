@@ -3,7 +3,7 @@
 // angular.module is a global place for creating, registering and retrieving Angular modules
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
-angular.module('starter', ['ionic', 'firebase', 'ionic.service.core', 'ionic.service.analytics'])
+angular.module('starter', ['ionic', 'firebase', 'ionic.service.core', 'ionic.service.analytics', 'ionic-material', 'starter.controllers'])
 
 .factory('Auth', function($firebaseAuth) {
   var endPoint = 'https://stockswagen.firebaseio.com';
@@ -43,18 +43,19 @@ angular.module('starter', ['ionic', 'firebase', 'ionic.service.core', 'ionic.ser
 
       user.set('image', authData.github.profileImageURL);
       console.log(authData);
-
-      var push = new Ionic.Push({});
-
-      push.register(function(token) {
-        // Log out your device token (Save this!)
-        console.log("Got Token:", token.token);
-      });
-      
-      user.set('pushToken', token.token);
       
       // persist the user
       user.save();
+
+      var push = new Ionic.Push({});
+
+      push.register(function(pushToken) {
+        var user = Ionic.User.current();
+        user.addPushToken(pushToken);
+        user.save();
+
+        console.log("Got Token:", pushToken.token);
+      });
     }
     // This will display the user's name in our view
     $scope.authData = authData;
@@ -76,3 +77,53 @@ angular.module('starter', ['ionic', 'firebase', 'ionic.service.core', 'ionic.ser
     }
   });
 })
+
+.config(function($stateProvider, $urlRouterProvider) {
+  $stateProvider
+
+    .state('app', {
+    url: '/app',
+    abstract: true,
+    templateUrl: 'templates/menu.html',
+    controller: 'AppCtrl'
+  })
+
+  .state('app.search', {
+    url: '/search',
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/search.html'
+      }
+    }
+  })
+
+  .state('app.browse', {
+      url: '/browse',
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/browse.html'
+        }
+      }
+    })
+    .state('app.playlists', {
+      url: '/playlists',
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/playlists.html',
+          controller: 'PlaylistsCtrl'
+        }
+      }
+    })
+
+  .state('app.single', {
+    url: '/playlists/:playlistId',
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/playlist.html',
+        controller: 'PlaylistCtrl'
+      }
+    }
+  });
+  // if none of the above states are matched, use this as the fallback
+  $urlRouterProvider.otherwise('/app/playlists');
+});

@@ -24,5 +24,7 @@
     "cordova-plugin-inappbrowser",
     "phonegap-plugin-push"
   ],
-  "cordovaPlatforms": []
+  "cordovaPlatforms": [
+    "android"
+  ]
 }
