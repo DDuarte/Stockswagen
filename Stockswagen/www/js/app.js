@@ -3,7 +3,7 @@
 // angular.module is a global place for creating, registering and retrieving Angular modules
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
-angular.module('starter', ['ionic', 'firebase'])
+angular.module('starter', ['ionic', 'firebase', 'ionic.service.core', 'ionic.service.analytics'])
 
 .factory('Auth', function($firebaseAuth) {
   var endPoint = 'https://stockswagen.firebaseio.com';
@@ -11,7 +11,7 @@ angular.module('starter', ['ionic', 'firebase'])
   return $firebaseAuth(usersRef);
 })
 
-.controller('AppCtrl', function($scope, Auth) {
+.controller('AppCtrl', function($scope, Auth, $ionicUser) {
   $scope.login = function(authMethod) {
     Auth.$authWithOAuthRedirect(authMethod).then(function(authData) {
     }).catch(function(error) {
@@ -29,14 +29,34 @@ angular.module('starter', ['ionic', 'firebase'])
       console.log('Not logged in yet');
     } else {
       console.log('Logged in as', authData.uid);
+
+      // kick off the platform web client
+      Ionic.io();
+
+      // this will give you a fresh user or the previously saved 'current user'
+      var user = Ionic.User.current();
+
+      // if the user doesn't have an id, you'll need to give it one.
+      if (!user.id) {
+        user.id = authData.uid;
+      }
+
+      user.set('image', authData.github.profileImageURL);
+      console.log(authData);
+
+      //persist the user
+      user.save();
     }
     // This will display the user's name in our view
     $scope.authData = authData;
   });
 })
 
-.run(function($ionicPlatform) {
+.run(function($ionicPlatform, $ionicAnalytics) {
   $ionicPlatform.ready(function() {
+
+    $ionicAnalytics.register();
+
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
     if(window.cordova && window.cordova.plugins.Keyboard) {
