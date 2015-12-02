@@ -1,0 +1,36 @@
+{
+  "name": "stocks-server",
+  "version": "0.1.0",
+  "description": "StockExchange webservice for user stock portfolio management and subscription",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "stocks",
+    "portfolio",
+    "yahoo",
+    "finance"
+  ],
+  "authors": [
+    {
+      "name": "Ruben Cordeiro",
+      "email": "ruben.cordeiro.eng@gmail.com"
+    },
+    {
+      "name": "Duarte Duarte",
+      "email": "dnpdd@gmail.com"
+    }
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "knex": "~0.9.0",
+    "koa": "~1.1.2",
+    "koa-gzip": "~0.1.0",
+    "koa-router": "~5.3.0",
+    "koa-validate": "~0.2.11",
+    "objection": "~0.3.0",
+    "pg": "~4.4.3",
+    "yahoo-finance": "~0.2.12"
+  }
+}
