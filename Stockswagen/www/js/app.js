@@ -44,7 +44,16 @@ angular.module('starter', ['ionic', 'firebase', 'ionic.service.core', 'ionic.ser
       user.set('image', authData.github.profileImageURL);
       console.log(authData);
 
-      //persist the user
+      var push = new Ionic.Push({});
+
+      push.register(function(token) {
+        // Log out your device token (Save this!)
+        console.log("Got Token:", token.token);
+      });
+      
+      user.set('pushToken', token.token);
+      
+      // persist the user
       user.save();
     }
     // This will display the user's name in our view
