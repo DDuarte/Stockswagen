@@ -1,8 +1,8 @@
 ﻿<Application
-    x:Class="StockExchange.App"
+    x:Class="Stockswagen.App"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:StockExchange"
+    xmlns:local="using:Stockswagen"
     RequestedTheme="Light">
 
 </Application>

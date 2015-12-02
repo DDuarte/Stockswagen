@@ -10,7 +10,7 @@ using CsvHelper;
 using CsvHelper.Configuration;
 using CsvHelper.TypeConversion;
 
-namespace StockExchange
+namespace Stockswagen
 {
     // ReSharper disable once ClassNeverInstantiated.Global
     public class NotAvailableTypeConverter<T> : DefaultTypeConverter
@@ -65,7 +65,6 @@ namespace StockExchange
             var e = finalDate.Day;
             var f = finalDate.Year;
             var g = GetPeriodicityValue(periodicity);
-
 
             var uri = new Uri($"http://ichart.finance.yahoo.com/table.txt?a={a}&b={b}&c={c}&d={d}&e={e}&f={f}&g={g}&s={tick}");
             var httpClient = new HttpClient();

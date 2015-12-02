@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace StockExchange
+namespace Stockswagen
 {
     public interface IFinance
     {
