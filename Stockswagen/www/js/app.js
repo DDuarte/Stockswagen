@@ -55,7 +55,26 @@ angular.module('starter', ['ionic', 'firebase', 'ionic.service.core', 'ionic.ser
         controller: 'StockCtrl'
       }
     }
+  })
+
+  .state('app.profile', {
+    url: '/profile',
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/profile.html',
+        controller: 'ProfileCtrl'
+      },
+      'fabContent': {
+        template: '<button id="fab-profile" class="button button-fab button-fab-bottom-right button-energized-900"><i class="icon ion-plus"></i></button>',
+        controller: function ($timeout) {
+          /*$timeout(function () {
+           document.getElementById('fab-profile').classList.toggle('on');
+           }, 800);*/
+        }
+      }
+    }
   });
+
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/app/portfolio');
 });
