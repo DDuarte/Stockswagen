@@ -1,0 +1,14 @@
+{
+  "firebase": {
+    "baseUrl": "https://stockswagen.firebaseio.com",
+    "collections": {
+      "portfolios": "https://stockswagen.firebaseio.com/portfolios",
+      "quotes": "https://stockswagen.firebaseio.com/quotes",
+      "historicalQuotes": "https://stockswagen.firebaseio.com/historicalQuotes"
+    }
+  },
+  "schedules": {
+    "quotes": "every 1 mins",
+    "historicalQuotes": "every 5 mins"
+  }
+}
