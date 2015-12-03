@@ -43,6 +43,14 @@ angular.module('starter', ['ionic', 'firebase', 'ionic.service.core', 'ionic.ser
       'menuContent': {
         templateUrl: 'templates/portfolio.html',
         controller: 'PortfolioCtrl'
+      },
+      'fabContent': {
+        template: '<button id="fab-portfolio" class="button button-fab button-fab-top-right expanded button-energized-900 flap"><i class="icon ion-plus"></i></button>',
+        controller: function ($timeout) {
+          $timeout(function () {
+            document.getElementById('fab-portfolio').classList.toggle('on');
+          }, 200);
+        }
       }
     }
   })
@@ -53,6 +61,9 @@ angular.module('starter', ['ionic', 'firebase', 'ionic.service.core', 'ionic.ser
       'menuContent': {
         templateUrl: 'templates/stock.html',
         controller: 'StockCtrl'
+      },
+      'fabContent': {
+        template: ''
       }
     }
   })
@@ -65,12 +76,7 @@ angular.module('starter', ['ionic', 'firebase', 'ionic.service.core', 'ionic.ser
         controller: 'ProfileCtrl'
       },
       'fabContent': {
-        template: '<button id="fab-profile" class="button button-fab button-fab-bottom-right button-energized-900"><i class="icon ion-plus"></i></button>',
-        controller: function ($timeout) {
-          /*$timeout(function () {
-           document.getElementById('fab-profile').classList.toggle('on');
-           }, 800);*/
-        }
+        template: ''
       }
     }
   });

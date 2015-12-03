@@ -181,7 +181,22 @@ angular.module('starter.controllers', [])
   };
 })
 
-.controller('PortfolioCtrl', function($scope) {
+.controller('PortfolioCtrl', function($scope, $timeout, ionicMaterialMotion, ionicMaterialInk) {
+  $scope.$parent.showHeader();
+  $scope.$parent.clearFabs();
+  $scope.isExpanded = true;
+  $scope.$parent.setExpanded(true);
+  $scope.$parent.setHeaderFab('right');
+
+  $timeout(function() {
+    ionicMaterialMotion.fadeSlideIn({
+      selector: '.animate-fade-slide-in .item'
+    });
+  }, 200);
+
+  // Activate ink for controller
+  ionicMaterialInk.displayEffect();
+
   $scope.portfolio = [
     { tick: 'Reggae', id: 1 },
     { tick: 'Chill', id: 2 },
@@ -192,7 +207,15 @@ angular.module('starter.controllers', [])
   ];
 })
 
-.controller('StockCtrl', function($scope, $stateParams) {
+.controller('StockCtrl', function($scope, $stateParams, ionicMaterialMotion, ionicMaterialInk) {
+  $scope.$parent.showHeader();
+  $scope.$parent.clearFabs();
+  $scope.isExpanded = true;
+  $scope.$parent.setExpanded(true);
+  $scope.$parent.setHeaderFab(false);
+
+  // Activate ink for controller
+  ionicMaterialInk.displayEffect();
 })
 
 .controller('ProfileCtrl', function($scope, $stateParams, $timeout, ionicMaterialMotion, ionicMaterialInk) {
