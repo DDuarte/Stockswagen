@@ -1,0 +1,9 @@
+<ion-view view-title="Portfolio">
+  <ion-content>
+    <ion-list>
+      <ion-item ng-repeat="stock in portfolio" href="#/app/portfolio/{{stock.tick}}">
+        {{stock.tick}}
+      </ion-item>
+    </ion-list>
+  </ion-content>
+</ion-view>

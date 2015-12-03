@@ -88,15 +88,6 @@ angular.module('starter', ['ionic', 'firebase', 'ionic.service.core', 'ionic.ser
     controller: 'AppCtrl'
   })
 
-  .state('app.search', {
-    url: '/search',
-    views: {
-      'menuContent': {
-        templateUrl: 'templates/search.html'
-      }
-    }
-  })
-
   .state('app.browse', {
       url: '/browse',
       views: {
@@ -105,25 +96,25 @@ angular.module('starter', ['ionic', 'firebase', 'ionic.service.core', 'ionic.ser
         }
       }
     })
-    .state('app.playlists', {
-      url: '/playlists',
+    .state('app.portfolio', {
+      url: '/portfolio',
       views: {
         'menuContent': {
-          templateUrl: 'templates/playlists.html',
-          controller: 'PlaylistsCtrl'
+          templateUrl: 'templates/portfolio.html',
+          controller: 'PortfolioCtrl'
         }
       }
     })
 
   .state('app.single', {
-    url: '/playlists/:playlistId',
+    url: '/portfolio/:tick',
     views: {
       'menuContent': {
-        templateUrl: 'templates/playlist.html',
-        controller: 'PlaylistCtrl'
+        templateUrl: 'templates/stock.html',
+        controller: 'StockCtrl'
       }
     }
   });
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/app/playlists');
+  $urlRouterProvider.otherwise('/app/portfolio');
 });
