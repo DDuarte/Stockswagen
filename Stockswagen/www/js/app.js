@@ -81,30 +81,22 @@ angular.module('starter', ['ionic', 'firebase', 'ionic.service.core', 'ionic.ser
 .config(function($stateProvider, $urlRouterProvider) {
   $stateProvider
 
-    .state('app', {
+  .state('app', {
     url: '/app',
     abstract: true,
     templateUrl: 'templates/menu.html',
     controller: 'AppCtrl'
   })
 
-  .state('app.browse', {
-      url: '/browse',
-      views: {
-        'menuContent': {
-          templateUrl: 'templates/browse.html'
-        }
+  .state('app.portfolio', {
+    url: '/portfolio',
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/portfolio.html',
+        controller: 'PortfolioCtrl'
       }
-    })
-    .state('app.portfolio', {
-      url: '/portfolio',
-      views: {
-        'menuContent': {
-          templateUrl: 'templates/portfolio.html',
-          controller: 'PortfolioCtrl'
-        }
-      }
-    })
+    }
+  })
 
   .state('app.single', {
     url: '/portfolio/:tick',
