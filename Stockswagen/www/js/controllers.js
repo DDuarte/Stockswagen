@@ -61,6 +61,9 @@ angular.module('starter.controllers', [])
       } else if (authData.github) {
         authData.profileImageURL = authData.github.profileImageURL;
         authData.displayName = authData.github.displayName;
+      } else if (authData.google) {
+        authData.profileImageURL = authData.google.profileImageURL;
+        authData.displayName = authData.google.displayName;
       }
 
       // kick off the platform web client
