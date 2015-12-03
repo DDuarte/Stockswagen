@@ -11,57 +11,6 @@ angular.module('starter', ['ionic', 'firebase', 'ionic.service.core', 'ionic.ser
   return $firebaseAuth(usersRef);
 })
 
-.controller('AppCtrl', function($scope, Auth, $ionicUser) {
-  $scope.login = function(authMethod) {
-    Auth.$authWithOAuthRedirect(authMethod).then(function(authData) {
-    }).catch(function(error) {
-      if (error.code === 'TRANSPORT_UNAVAILABLE') {
-        Auth.$authWithOAuthPopup(authMethod).then(function(authData) {
-        });
-      } else {
-        console.log(error);
-      }
-    });
-  };
-  
-  Auth.$onAuth(function(authData) {
-    if (authData === null) {
-      console.log('Not logged in yet');
-    } else {
-      console.log('Logged in as', authData.uid);
-
-      // kick off the platform web client
-      Ionic.io();
-
-      // this will give you a fresh user or the previously saved 'current user'
-      var user = Ionic.User.current();
-
-      // if the user doesn't have an id, you'll need to give it one.
-      if (!user.id) {
-        user.id = authData.uid;
-      }
-
-      user.set('image', authData.github.profileImageURL);
-      console.log(authData);
-      
-      // persist the user
-      user.save();
-
-      var push = new Ionic.Push({});
-
-      push.register(function(pushToken) {
-        var user = Ionic.User.current();
-        user.addPushToken(pushToken);
-        user.save();
-
-        console.log("Got Token:", pushToken.token);
-      });
-    }
-    // This will display the user's name in our view
-    $scope.authData = authData;
-  });
-})
-
 .run(function($ionicPlatform, $ionicAnalytics) {
   $ionicPlatform.ready(function() {
 
