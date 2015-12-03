@@ -9,9 +9,6 @@ angular.module('starter.controllers', [])
   //$scope.$on('$ionicView.enter', function(e) {
   //});
 
-  // Form data for the login modal
-  $scope.loginData = {};
-
   // Create the login modal that we will use later
   $ionicModal.fromTemplateUrl('templates/login.html', {
     scope: $scope
@@ -58,6 +55,14 @@ angular.module('starter.controllers', [])
     } else {
       console.log('Logged in as', authData.uid);
 
+      if (authData.facebook) {
+        authData.profileImageURL = authData.facebook.profileImageURL;
+        authData.displayName = authData.facebook.displayName;
+      } else if (authData.github) {
+        authData.profileImageURL = authData.github.profileImageURL;
+        authData.displayName = authData.github.displayName;
+      }
+
       // kick off the platform web client
       Ionic.io();
 
@@ -69,7 +74,8 @@ angular.module('starter.controllers', [])
         user.id = authData.uid;
       }
 
-      user.set('image', authData.github.profileImageURL);
+      user.set('image', authData.profileImageURL);
+      user.set('displayName', authData.displayName);
       console.log(authData);
 
       // persist the user
