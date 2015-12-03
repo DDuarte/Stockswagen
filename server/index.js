@@ -8,7 +8,7 @@ const StockHistorySubscriber = require('./services/stockHistorySubscriber'),
 
 let historicalTimer, snapshotTimer;
 try {
-    historicalTimer = StockHistorySubscriber.schedule('every 1 mins');
+    historicalTimer = StockHistorySubscriber.schedule(require('config').schedules.historicalQuotes);
     snapshotTimer = StockSnapshotSubscriber.schedule(require('config').schedules.quotes);
 } catch(err) {
     console.error("Error in stock subscription service:", err);
