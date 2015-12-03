@@ -181,7 +181,7 @@ angular.module('starter.controllers', [])
   };
 })
 
-.controller('PortfolioCtrl', function($scope, $timeout, ionicMaterialMotion, ionicMaterialInk) {
+.controller('PortfolioCtrl', function($scope, $timeout, $ionicModal, ionicMaterialMotion, ionicMaterialInk) {
   $scope.$parent.showHeader();
   $scope.$parent.clearFabs();
   $scope.isExpanded = true;

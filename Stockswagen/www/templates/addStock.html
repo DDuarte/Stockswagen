@@ -1,0 +1,53 @@
+<ion-modal-view>
+  <ion-header-bar class="bar-positive-900">
+    <h1 class="title">New Portfolio Entry</h1>
+    <div class="buttons">
+      <button class="button button-clear" ng-click="closeAddStock()"><i class="ion ion-close"></i></button>
+    </div>
+  </ion-header-bar>
+  <ion-content>
+    <form>
+      <label class="item item-input">
+        <span class="input-label">Tick</span>
+        <input ion-autocomplete type="text" readonly="readonly" class="ion-autocomplete" autocomplete="off" max-selected-items="1"
+               ng-model="form.tick"
+               item-value-key="tick"
+               item-view-value-key="fullName"
+               items-method="getTestItems(query, isInitializing)"
+               items-method-value-key="items"
+               items-method-view-value-key="tick"
+               placeholder="Search ticks..."
+        />
+      </label>
+      <label class="item item-toggle">
+        <span class="input-label">
+          Enable Notifications
+        </span>
+        <div class="small item-text-wrap">
+          <i class="icon ion-information-circled"></i>
+          Receive a push notification if the stock value gets lower than a <strong>minimum value</strong> or
+          higher than a <strong>maximum value</strong>.
+        </div>
+        <label class="toggle toggle-positive">
+          <input type="checkbox" ng-model="form.notifications">
+          <div class="track">
+            <div class="handle"></div>
+          </div>
+        </label>
+      </label>
+      <label class="item item-input" ng-if="form.notifications === true">
+        <span class="input-label">Minimum Value</span>
+        <i class="icon ion-social-usd placeholder-icon"></i>
+        <input type="number" ng-model="form.min">
+      </label>
+      <label class="item item-input" ng-if="form.notifications === true">
+        <span class="input-label">Maximum Value</span>
+        <i class="icon ion-social-usd placeholder-icon"></i>
+        <input type="number" ng-model="form.max">
+      </label>
+      <div class="padding">
+        <button ng-disabled="form.tick === '' || (form.notifications === true && form.min >= form.max)" class="button button-block button-positive waves-effect waves-button waves-light">Submit</button>
+      </div>
+    </form>
+  </ion-content>
+</ion-modal-view>
