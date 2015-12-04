@@ -47,8 +47,16 @@ h1 {
 /* }
 /* */
 .menu.menu-left * {
-    font-weight: bold;
+  font-weight: bold;
 }
+
+.menu .bar.bar-header.expanded {
+  background-image: url('https://raw.githubusercontent.com/zachsoft/Ionic-Material/master/docs/img/material-graphite.jpg');
+  background-size: 120%;
+  background-position: 0%;
+  transition: all .5s ease-in-out;
+}
+
 /*
 /* .menu-open .ion-navicon {
 /*     transform: rotate(-360deg);
