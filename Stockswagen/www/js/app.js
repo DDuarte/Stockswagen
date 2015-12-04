@@ -40,6 +40,12 @@ angular.module('starter', ['ionic', 'firebase', 'ionic.service.core', 'ionic.ser
     controller: 'AppCtrl'
   })
 
+  .state('login', {
+    url: '/login',
+    templateUrl: 'templates/login.html',
+    controller: 'LoginCtrl'
+  })
+
   .state('app.portfolio', {
     url: '/portfolio',
     views: {

@@ -1,13 +1,16 @@
-<ion-modal-view>
-  <ion-header-bar>
-    <h1 class="title">Login</h1>
-    <div class="buttons">
-      <button class="button button-clear" ng-click="closeLogin()">Close</button>
+<ion-view view-title="Login">
+  <ion-content style="background: url(http://www.cinemablend.com/images/news/38103/_1371483350.gif) center; background-size: cover;">
+    <div class="hero no-header flat">
+      <div class="content">
+        <i class="ion-android-alarm-clock icon hero-icon assertive-900-border"></i>
+        <h1>Stockswagen</h1>
+      </div>
     </div>
-  </ion-header-bar>
-  <ion-content>
-    <button class="button button-royal icon ion-social-github" ng-click="login2('github')"></button>
-    <button class="button button-royal icon ion-social-facebook" ng-click="login2('facebook')"></button>
-    <button class="button button-royal icon ion-social-google" ng-click="login2('google')"></button>
+    <div class="padding">
+      <button class="button button-block icon-left button-border ion-social-facebook text-center button-positive-900"
+              ng-click="login('facebook')">Facebook</button>
+      <button class="button button-block icon-left button-border ion-social-google text-center button-assertive-900"
+              ng-click="login('google')">Google+</button>
+    </div>
   </ion-content>
-</ion-modal-view>
+</ion-view>
