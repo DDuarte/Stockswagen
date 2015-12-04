@@ -12,7 +12,7 @@ angular.module('starter', ['ionic', 'firebase', 'ionic.service.core', 'ionic.ser
   return $firebaseAuth(usersRef);
 })
 
-.run(function($ionicPlatform, $ionicAnalytics) {
+.run(function($rootScope, $state, $ionicPlatform, $ionicAnalytics) {
   $ionicPlatform.ready(function() {
 
     $ionicAnalytics.register();
@@ -26,6 +26,14 @@ angular.module('starter', ['ionic', 'firebase', 'ionic.service.core', 'ionic.ser
       StatusBar.styleDefault();
     }
   });
+
+  $rootScope.$on('$routeChangeError', function(event, next, previous, error) {
+    // We can catch the error thrown when the $requireAuth promise is rejected
+    // and redirect the user back to the home page
+    if (error === 'AUTH_REQUIRED') {
+      $state.go('login');
+    }
+  });
 })
 
 .config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
@@ -35,6 +43,11 @@ angular.module('starter', ['ionic', 'firebase', 'ionic.service.core', 'ionic.ser
 
   .state('app', {
     url: '/app',
+    resolve: {
+      'currentAuth': ['Auth', function(Auth) {
+        return Auth.$requireAuth();
+      }]
+    },
     abstract: true,
     templateUrl: 'templates/menu.html',
     controller: 'AppCtrl'
