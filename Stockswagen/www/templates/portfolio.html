@@ -1,16 +1,23 @@
 <ion-view view-title="Portfolio">
   <ion-content ng-class="{expanded:isExpanded}" class="animate-fade-slide-in">
-    <div class="item card-item" ng-repeat="stock in portfolio">
-      <div ui-sref="#/app/portfolio/{{stock.tick}}" class="card stable-bg ink ink-dark">
-        <div class="item item-avatar item-text-wrap">
-          <span class="avatar" style="background-image: url('img/profile-bg.jpg');"></span>
-          <strong>{{stock.tick}}</strong>
-          <div class="card-footer text-right">
-            <i class="icon ion-chatbubbles positive"></i> 6
-            <i class="icon ion-heart assertive"></i> 23
-            <div class="pull-left">
-              <i class="icon ion-clock"></i> just now
-            </div>
+    <div class="list">
+      <div class="item">
+        <h2>Following {{portfolio.length}} stocks</h2>
+      </div>
+      <div class="item item-divider"></div>
+      <div class="item ink" ng-repeat="stock in portfolio">
+        <div class="row">
+          <div class="col">
+            <h2>
+              {{stock.tick}}
+            </h2>
+            <p>{{stock.name}}</p>
+          </div>
+          <div class="col">
+            <h2>40</h2>
+          </div>
+          <div class="col">
+            <button class="button button-flat button-balanced ink">+1.25%</button>
           </div>
         </div>
       </div>

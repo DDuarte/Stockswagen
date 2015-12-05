@@ -10,8 +10,7 @@
       <label class="item item-input">
         <span class="input-label">Tick</span>
         <input ion-autocomplete type="text" readonly="readonly" class="ion-autocomplete" autocomplete="off" max-selected-items="1"
-               ng-model="form.tick"
-               item-value-key="tick"
+               ng-model="selectedStock"
                item-view-value-key="fullName"
                items-method="getTestItems(query, isInitializing)"
                items-method-value-key="items"
@@ -29,24 +28,26 @@
           higher than a <strong>maximum value</strong>.
         </div>
         <label class="toggle toggle-positive">
-          <input type="checkbox" ng-model="form.notifications">
+          <input type="checkbox" ng-model="subscription">
           <div class="track">
             <div class="handle"></div>
           </div>
         </label>
       </label>
-      <label class="item item-input" ng-if="form.notifications === true">
+      <label class="item item-input" ng-if="subscription === true">
         <span class="input-label">Minimum Value</span>
         <i class="icon ion-social-usd placeholder-icon"></i>
-        <input type="number" ng-model="form.min">
+        <input type="number" ng-model="lowerBound">
       </label>
-      <label class="item item-input" ng-if="form.notifications === true">
+      <label class="item item-input" ng-if="subscription === true">
         <span class="input-label">Maximum Value</span>
         <i class="icon ion-social-usd placeholder-icon"></i>
-        <input type="number" ng-model="form.max">
+        <input type="number" ng-model="upperBound">
       </label>
       <div class="padding">
-        <button ng-disabled="form.tick === '' || (form.notifications === true && form.min >= form.max)" class="button button-block button-positive waves-effect waves-button waves-light">Submit</button>
+        <button ng-click="createPortfolioEntry({ stock: selectedStock[0], subscription: subscription, lowerBound: lowerBound, upperBound: upperBound})"
+                ng-disabled="form.tick.length == 0 || (form.notifications === true && form.min >= form.max)"
+                class="button button-block button-positive waves-effect waves-button waves-light">Submit</button>
       </div>
     </form>
   </ion-content>

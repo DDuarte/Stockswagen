@@ -1,6 +1,6 @@
 angular.module('starter.controllers', [])
 
-.controller('AppCtrl', function($scope, $ionicModal, $timeout, Auth, $ionicUser) {
+.controller('AppCtrl', function($scope) {
 
   // With the new view caching in Ionic, Controllers are only called
   // when they are recreated or on app start, instead of every page change.
@@ -153,7 +153,7 @@ angular.module('starter.controllers', [])
   });
 })
 
-.controller('PortfolioCtrl', function($scope, $timeout, $ionicModal, ionicMaterialMotion, ionicMaterialInk) {
+.controller('PortfolioListCtrl', function($scope, $timeout, $ionicModal, Auth, Portfolio, ionicMaterialMotion, ionicMaterialInk) {
   $scope.$parent.showHeader();
   $scope.$parent.clearFabs();
   $scope.isExpanded = true;
@@ -169,14 +169,148 @@ angular.module('starter.controllers', [])
   // Activate ink for controller
   ionicMaterialInk.displayEffect();
 
-  $scope.portfolio = [
-    { tick: 'Reggae', id: 1 },
-    { tick: 'Chill', id: 2 },
-    { tick: 'Dubstep', id: 3 },
-    { tick: 'Indie', id: 4 },
-    { tick: 'Rap', id: 5 },
-    { tick: 'Cowbell', id: 6 }
-  ];
+  $scope.portfolio = Portfolio(Auth.$getAuth().uid);
+
+})
+
+.controller('AddStockCtrl', function ($scope, $timeout, $ionicModal, $ionicPopup, Auth, Portfolio) {
+  $timeout(function () {
+    document.getElementById('fab-portfolio').classList.toggle('on');
+  }, 200);
+
+  $scope.lowerBound = 50;
+  $scope.upperBound = 100;
+
+  $ionicModal.fromTemplateUrl('templates/addStock.html', {
+    scope: $scope
+  }).then(function (modal) {
+    $scope.addStockModal = modal;
+  });
+
+  $scope.closeAddStock = function () {
+    $scope.addStockModal.hide();
+  };
+
+  $scope.openAddStock = function () {
+    $scope.addStockModal.show();
+  };
+
+  $scope.stocks = [
+    {name: 'Apple Inc.', tick: 'AAPL'},
+    {name: 'Alphabet Inc.', tick: 'GOOGL'},
+    {name: 'Alphabet Inc.', tick: 'GOOG'},
+    {name: 'Microsoft Corporation', tick: 'MSFT'},
+    {name: 'Amazon.com, Inc.', tick: 'AMZN'},
+    {name: 'Facebook, Inc.', tick: 'FB'},
+    {name: 'Intel Corporation', tick: 'INTC'},
+    {name: 'Gilead Sciences, Inc.', tick: 'GILD'},
+    {name: 'Comcast Corporation', tick: 'CMCSK'},
+    {name: 'Comcast Corporation', tick: 'CMCSA'},
+    {name: 'Cisco Systems, Inc.', tick: 'CSCO'},
+    {name: 'Amgen Inc.', tick: 'AMGN'},
+    {name: 'Starbucks Corporation', tick: 'SBUX'},
+    {name: 'Walgreens Boots Alliance, Inc.', tick: 'WBA'},
+    {name: 'The Kraft Heinz Company', tick: 'KHC'},
+    {name: 'Celgene Corporation', tick: 'CELG'},
+    {name: 'QUALCOMM Incorporated', tick: 'QCOM'},
+    {name: 'Costco Wholesale Corporation', tick: 'COST'},
+    {name: 'Mondelez International, Inc.', tick: 'MDLZ'},
+    {name: 'Biogen Inc.', tick: 'BIIB'},
+    {name: 'The Priceline Group Inc.', tick: 'PCLN'},
+    {name: 'Twenty-First Century Fox, Inc.', tick: 'FOX'},
+    {name: 'Express Scripts Holding Company', tick: 'ESRX'},
+    {name: 'Baidu, Inc.', tick: 'BIDU'},
+    {name: 'Texas Instruments Incorporated', tick: 'TXN'},
+    {name: 'Regeneron Pharmaceuticals, Inc.', tick: 'REGN'},
+    {name: 'Netflix, Inc.', tick: 'NFLX'},
+    {name: 'Adobe Systems Incorporated', tick: 'ADBE'},
+    {name: 'PayPal Holdings, Inc.', tick: 'PYPL'},
+    {name: 'PowerShares QQQ Trust, Series 1', tick: 'QQQ'},
+    {name: 'Automatic Data Processing, Inc.', tick: 'ADP'},
+    {name: 'Alexion Pharmaceuticals, Inc.', tick: 'ALXN'},
+    {name: 'Cognizant Technology Solutions Corporation', tick: 'CTSH'},
+    {name: 'Liberty Global plc', tick: 'LBTYA'},
+    {name: 'Avago Technologies Limited', tick: 'AVGO'},
+    {name: 'Liberty Global plc', tick: 'LILAK'},
+    {name: 'Liberty Global plc', tick: 'LBTYB'},
+    {name: 'Twenty-First Century Fox, Inc.', tick: 'FOXA'},
+    {name: 'Liberty Global plc', tick: 'LBTYK'},
+    {name: 'Liberty Global plc', tick: 'LILA'},
+    {name: 'eBay Inc.', tick: 'EBAY'},
+    {name: 'Yahoo! Inc.', tick: 'YHOO'},
+    {name: 'Broadcom Corporation', tick: 'BRCM'},
+    {name: 'CME Group Inc.', tick: 'CME'},
+    {name: 'Vertex Pharmaceuticals Incorporated', tick: 'VRTX'},
+    {name: 'Monster Beverage Corporation', tick: 'MNST'},
+    {name: 'Tesla Motors, Inc.', tick: 'TSLA'},
+    {name: 'T-Mobile US, Inc.', tick: 'TMUS'},
+    {name: 'DISH Network Corporation', tick: 'DISH'},
+    {name: 'Activision Blizzard, Inc', tick: 'ATVI'}];
+
+  $scope.stocks.forEach(function (stock, i) {
+    $scope.stocks[i].fullName = stock.tick + ' - ' + stock.name;
+  });
+
+  $scope.getTestItems = function (query, isInitializing) {
+    if (isInitializing) {
+      return {
+        items: $scope.stocks.slice(0, 9)
+      };
+    }
+
+    if (query) {
+      var options = {
+        keys: ['tick', 'name']
+      };
+
+      var f = new Fuse($scope.stocks, options);
+      return {
+        items: f.search(query)
+      };
+    }
+
+    return {items: []};
+  };
+
+  $scope.model = "";
+
+  $scope.createPortfolioEntry = function(entry) {
+    console.log('Entry:', entry);
+    Portfolio(Auth.$getAuth().uid).$add({
+      tick: entry.stock.tick,
+      subscription: entry.subscription,
+      lowerBound: entry.lowerBound,
+      upperBound: entry.upperBound,
+      name: entry.stock.name
+    })
+    .then(function(newEntry) {
+
+      $ionicPopup
+      .alert({
+        title: 'Success',
+        template: 'Your portfolio entry was created'
+      })
+      .then(function() {
+        $scope.closeAddStock();
+      });
+
+    })
+    .catch(function(error) {
+
+      $ionicPopup
+      .alert({
+        title: 'Error creating portfolio entry',
+        template: 'Reason: ' + error.toString()
+      })
+      .then(function() {
+        $scope.closeAddStock();
+      });
+
+      console.error('Error:', error);
+    });
+
+  }
+
 })
 
 .controller('StockCtrl', function($scope, $stateParams, ionicMaterialMotion, ionicMaterialInk) {
