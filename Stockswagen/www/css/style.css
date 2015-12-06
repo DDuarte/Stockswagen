@@ -85,3 +85,11 @@ h1 {
 /*     position: fixed;
 /*     bottom: 0;
 /* } */
+
+.portfolio.green {
+  color: green;
+}
+
+.portfolio.red {
+  color: red
+}
