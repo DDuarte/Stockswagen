@@ -26,7 +26,9 @@ class StockSnapshotSubscriber {
         return Co(function* () {
 
             let portfolios = yield Portfolios; // get all portfolios
-            let stockSymbols = _.flatten(_.values(portfolios.val()));
+            let stockSymbols = _.uniq(_.flatten(_.values(portfolios.val())
+                                .map(kvStocks => { return _.values(kvStocks); }))
+                                .map(stockObj => { return stockObj.tick; }));
 
             let stocksData = yield Finance.snapshot({
                 symbols: stockSymbols
