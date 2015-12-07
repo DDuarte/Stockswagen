@@ -46,7 +46,7 @@
       </label>
       <div class="padding">
         <button ng-click="createPortfolioEntry({ stock: selectedStock[0], subscription: subscription, lowerBound: lowerBound, upperBound: upperBound})"
-                ng-disabled="form.tick.length == 0 || (form.notifications === true && form.min >= form.max)"
+                ng-disabled="!selectedStock || (subscription === true && lowerBound >= upperBound)"
                 class="button button-block button-positive waves-effect waves-button waves-light">Submit</button>
       </div>
     </form>
