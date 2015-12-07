@@ -69,7 +69,6 @@ angular.module('starter.controllers', [])
         content[i].classList.toggle('has-header');
       }
     }
-
   };
 
   $scope.hideHeader = function() {
@@ -157,21 +156,12 @@ angular.module('starter.controllers', [])
   });
 })
 
-.controller('PortfolioListCtrl', function($scope, $timeout, $ionicModal, Auth, Portfolio, Quotes, ionicMaterialMotion, ionicMaterialInk) {
+.controller('PortfolioListCtrl', function($scope, $timeout, $ionicModal, Auth, Portfolio, Quotes) {
   $scope.$parent.showHeader();
   $scope.$parent.clearFabs();
   $scope.isExpanded = false;
   $scope.$parent.setExpanded(false);
   $scope.$parent.setHeaderFab('right');
-
-  $timeout(function() {
-    ionicMaterialMotion.fadeSlideIn({
-      selector: '.animate-fade-slide-in .item'
-    });
-  }, 200);
-
-  // Activate ink for controller
-  ionicMaterialInk.displayEffect();
 
   $scope.portfolio = Portfolio(Auth.$getAuth().uid);
   $scope.quotes = Quotes;
@@ -179,8 +169,6 @@ angular.module('starter.controllers', [])
   $scope.presentNumber = function(number) {
     return (number >= 0) ? '+' + number : number.toString();
   };
-
-  console.log($scope.quotes);
 })
 
 .controller('AddStockCtrl', function ($scope, $timeout, $ionicModal, $ionicPopup, Auth, Portfolio) {
