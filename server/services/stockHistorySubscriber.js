@@ -26,6 +26,8 @@ class StockHistorySubscriber {
     static _watchStocksHistory() {
         return Co(function* () {
 
+            console.log("Updating stock history...");
+
             let portfolios = yield Portfolios; // get all portfolios
             let stockSymbols = _.uniq(_.flatten(_.values(portfolios.val())
                                 .map(kvStocks => { return _.values(kvStocks); }))
