@@ -156,7 +156,7 @@ angular.module('starter.controllers', [])
   };
 })
 
-.controller('PortfolioListCtrl', function($scope, $timeout, $ionicModal, Auth, Portfolio, Quotes) {
+.controller('PortfolioListCtrl', function($scope, $timeout, $ionicModal, Auth, Portfolio, Quotes, ionicMaterialInk) {
   $scope.$parent.showHeader();
   $scope.$parent.clearFabs();
   $scope.isExpanded = false;
@@ -169,6 +169,11 @@ angular.module('starter.controllers', [])
   $scope.presentNumber = function(number) {
     return (number >= 0) ? '+' + number : number.toString();
   };
+
+  $timeout(function() {
+    // Activate ink for controller
+    ionicMaterialInk.displayEffect();
+  }, 1500);
 })
 
 .controller('AddStockCtrl', function ($scope, $timeout, $ionicModal, $ionicPopup, Auth, Portfolio) {
@@ -311,7 +316,7 @@ angular.module('starter.controllers', [])
   };
 })
 
-.controller('StockCtrl', function($scope, $stateParams, Quote, ionicMaterialMotion, ionicMaterialInk) {
+.controller('StockCtrl', function($scope, $stateParams, Quote) {
   $scope.$parent.showHeader();
   $scope.$parent.clearFabs();
   $scope.isExpanded = false;
@@ -320,9 +325,6 @@ angular.module('starter.controllers', [])
   $scope.$parent.hideNavButtons();
 
   $scope.quote = Quote($stateParams.tick);
-
-  // Activate ink for controller
-  ionicMaterialInk.displayEffect();
 })
 
 .controller('ProfileCtrl', function($scope, $stateParams, $timeout, ionicMaterialMotion, ionicMaterialInk) {

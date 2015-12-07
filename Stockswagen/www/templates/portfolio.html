@@ -5,7 +5,7 @@
         <h2>Following {{portfolio.length}} stocks</h2>
       </div>
       <div class="item item-divider"></div>
-      <div class="item ink" ng-repeat="stock in portfolio" ui-sref="app.portfolioItem({tick: stock.tick})">
+      <div class="item ink ink-dark stable-bg" ng-repeat="stock in portfolio" ui-sref="app.portfolioItem({tick: stock.tick})">
         <div class="row">
           <div class="col">
             <h2>
@@ -15,7 +15,7 @@
           </div>
           <div class="col text-right">
             <h2>{{quotes[stock.tick].lastTradePriceOnly | currency}}</h2>
-            <small>{{ quotes[stock.tick].lastTradeTime }}</small>
+            <p class="small">{{ quotes[stock.tick].lastTradeTime }}</p>
             <p class="portfolio" ng-class="{'green': quotes[stock.tick].changeInPercent >= 0, 'red': quotes[stock.tick].changeInPercent < 0}">
               {{presentNumber((quotes[stock.tick].changeAndPercentChange * 100).toFixed(2))}} {{(quotes[stock.tick].changeInPercent * 100).toFixed(2)}}%
             </p>
