@@ -1,11 +1,16 @@
 <ion-view view-title="Profile | Stockswagen">
     <ion-content ng-class="{expanded:$scope.isExpanded}">
-        <div class="hero slide-up" style="background-image: url('img/profile-bg.jpg');">
+        <div class="hero" style="background-image: url('img/profile-bg.jpg');">
             <div class="content">
                 <div class="avatar" ng-style="{'background-image':'url(' + authData.profileImageURL + ')'}"></div>
                 <h3><a class="light">{{authData.displayName}}</a></h3>
                 <h4>{{authData.github.username}}</h4>
             </div>
+        </div>
+
+        <div class="padding">
+          <button class="button button-block icon-left button-border ion-log-out text-center button-dark"
+                  ng-click="logout()">Logout</button>
         </div>
     </ion-content>
 </ion-view>

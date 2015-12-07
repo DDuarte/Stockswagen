@@ -1,6 +1,8 @@
 angular.module('starter.controllers', [])
 
-.controller('AppCtrl', function($scope, Auth) {
+.controller('AppCtrl', function($scope, $rootScope, currentAuth) {
+
+  $rootScope.authData = currentAuth;
 
   // With the new view caching in Ionic, Controllers are only called
   // when they are recreated or on app start, instead of every page change.
@@ -87,8 +89,24 @@ angular.module('starter.controllers', [])
       fabs[0].remove();
     }
   };
+})
 
-  Auth.$onAuth(function(authData) {
+.controller('LoginCtrl', function($scope, $rootScope, $state, Auth) {
+  $rootScope.auth = Auth;
+
+  $scope.login = function(authMethod) {
+    $rootScope.auth.$authWithOAuthPopup(authMethod).then(function(authData) {
+    }).catch(function(error) {
+      if (error.code === 'TRANSPORT_UNAVAILABLE') {
+        $rootScope.auth.$authWithOAuthRedirect(authMethod).then(function(authData) {
+        });
+      } else {
+        console.log(error);
+      }
+    });
+  };
+
+  $rootScope.auth.$onAuth(function(authData) {
 
     // This will display the user's name in our view
     $scope.authData = authData;
@@ -139,21 +157,6 @@ angular.module('starter.controllers', [])
 
     }
   });
-})
-
-.controller('LoginCtrl', function($scope, $rootScope, $state, Auth) {
-
-  $scope.login = function(authMethod) {
-    Auth.$authWithOAuthRedirect(authMethod).then(function(authData) {
-    }).catch(function(error) {
-      if (error.code === 'TRANSPORT_UNAVAILABLE') {
-        Auth.$authWithOAuthPopup(authMethod).then(function(authData) {
-        });
-      } else {
-        console.log(error);
-      }
-    });
-  };
 })
 
 .controller('PortfolioListCtrl', function($scope, $timeout, $ionicModal, Auth, Portfolio, Quotes, ionicMaterialInk) {
@@ -327,7 +330,7 @@ angular.module('starter.controllers', [])
   $scope.quote = Quote($stateParams.tick);
 })
 
-.controller('ProfileCtrl', function($scope, $stateParams, $timeout, ionicMaterialMotion, ionicMaterialInk) {
+.controller('ProfileCtrl', function($scope, $rootScope, $stateParams, $timeout, $state, Auth) {
   // Set Header
   $scope.$parent.showHeader();
   $scope.$parent.clearFabs();
@@ -335,19 +338,9 @@ angular.module('starter.controllers', [])
   $scope.$parent.setExpanded(false);
   $scope.$parent.setHeaderFab(false);
 
-  // Set Motion
-  $timeout(function() {
-    ionicMaterialMotion.slideUp({
-      selector: '.slide-up'
-    });
-  }, 300);
-
-  $timeout(function() {
-    ionicMaterialMotion.fadeSlideInRight({
-      startVelocity: 3000
-    });
-  }, 700);
-
-  // Set Ink
-  ionicMaterialInk.displayEffect();
+  $scope.logout = function() {
+    $rootScope.authData = null;
+    $rootScope.auth.$unauth();
+    $state.go('login');
+  }
 });
