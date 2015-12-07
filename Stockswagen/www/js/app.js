@@ -119,5 +119,5 @@ angular.module('starter', ['ionic', 'firebase', 'ionic.service.core', 'ionic.ser
   });
 
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/app/portfolio');
+  $urlRouterProvider.otherwise('/login');
 });
