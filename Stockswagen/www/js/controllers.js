@@ -178,6 +178,7 @@ angular.module('starter.controllers', [])
 
   $scope.lowerBound = 50;
   $scope.upperBound = 100;
+  $scope.subscription = false;
 
   $ionicModal.fromTemplateUrl('templates/addStock.html', {
     scope: $scope
@@ -307,8 +308,7 @@ angular.module('starter.controllers', [])
       console.error('Error:', error);
     });
 
-  }
-
+  };
 })
 
 .controller('StockCtrl', function($scope, $stateParams, Quote, ionicMaterialMotion, ionicMaterialInk) {
