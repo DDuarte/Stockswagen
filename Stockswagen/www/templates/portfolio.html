@@ -5,7 +5,7 @@
         <h2>Following {{portfolio.length}} stocks</h2>
       </div>
       <div class="item item-divider"></div>
-      <div class="item ink" ng-repeat="stock in portfolio">
+      <div class="item ink" ng-repeat="stock in portfolio" ui-sref="app.portfolioItem({tick: stock.tick})">
         <div class="row">
           <div class="col">
             <h2>

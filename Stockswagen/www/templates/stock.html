@@ -1,5 +1,85 @@
 <ion-view view-title="Stock">
-  <ion-content>
-    <h1>Stock</h1>
+  <ion-content ng-class="{expanded:$scope.isExpanded}">
+    <div class="card">
+      <div class="item item-text-wrap">
+        <div class="row">
+          <div class="col">
+            <h1 style="color: black;">{{quote.lastTradePriceOnly}}</h1> {{quote.lastTradeDate}}
+          </div>
+          <div class="col">
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        Open
+      </div>
+      <div class="col">
+        {{quote.open}}
+      </div>
+      <div class="col">
+        MktCap
+      </div>
+      <div class="col">
+        {{quote.marketCapitalization}}
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        High
+      </div>
+      <div class="col">
+        {{quote.daysHigh}}
+      </div>
+      <div class="col">
+        52Wk High
+      </div>
+      <div class="col">
+        {{quote['52WeekHigh']}}
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        Low
+      </div>
+      <div class="col">
+        {{quote.daysLow}}
+      </div>
+      <div class="col">
+        52Wk Low
+      </div>
+      <div class="col">
+        {{quote['52WeekLow']}}
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        Vol
+      </div>
+      <div class="col">
+        {{quote.volume}}
+      </div>
+      <div class="col">
+        Avg Vol
+      </div>
+      <div class="col">
+        {{quote.averageDailyVolume}}
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        EPS
+      </div>
+      <div class="col">
+        {{quote.epsEstimateCurrentYear}}
+      </div>
+      <div class="col">
+        P/E
+      </div>
+      <div class="col">
+        {{quote.peRatio}}
+      </div>
+    </div>
   </ion-content>
 </ion-view>

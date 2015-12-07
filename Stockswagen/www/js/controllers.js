@@ -28,6 +28,10 @@ angular.module('starter.controllers', [])
     document.getElementsByTagName('ion-nav-bar')[0].style.display = 'block';
   };
 
+  $scope.hideNavButtons = function() {
+    document.getElementsByTagName('ion-nav-buttons')[0].style.display = 'none';
+  };
+
   $scope.noHeader = function() {
     var content = document.getElementsByTagName('ion-content');
     for (var i = 0; i < content.length; i++) {
@@ -319,12 +323,15 @@ angular.module('starter.controllers', [])
 
 })
 
-.controller('StockCtrl', function($scope, $stateParams, ionicMaterialMotion, ionicMaterialInk) {
+.controller('StockCtrl', function($scope, $stateParams, Quote, ionicMaterialMotion, ionicMaterialInk) {
   $scope.$parent.showHeader();
   $scope.$parent.clearFabs();
-  $scope.isExpanded = true;
-  $scope.$parent.setExpanded(true);
+  $scope.isExpanded = false;
+  $scope.$parent.setExpanded(false);
   $scope.$parent.setHeaderFab(false);
+  $scope.$parent.hideNavButtons();
+
+  $scope.quote = Quote($stateParams.tick);
 
   // Activate ink for controller
   ionicMaterialInk.displayEffect();

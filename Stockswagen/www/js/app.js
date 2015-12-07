@@ -24,6 +24,13 @@ angular.module('starter', ['ionic', 'firebase', 'ionic.service.core', 'ionic.ser
   return $firebaseObject(quotesRef);
 })
 
+.factory('Quote', function($firebaseObject) {
+  return function(tickSymbol) {
+    var quoteRef = new Firebase('https://stockswagen.firebaseio.com/quotes');
+    return $firebaseObject(quoteRef.child(tickSymbol));
+  }
+})
+
 .run(function($rootScope, $state, $ionicPlatform, $ionicAnalytics) {
   $ionicPlatform.ready(function() {
 
@@ -85,7 +92,7 @@ angular.module('starter', ['ionic', 'firebase', 'ionic.service.core', 'ionic.ser
     }
   })
 
-  .state('app.single', {
+  .state('app.portfolioItem', {
     url: '/portfolio/:tick',
     views: {
       'menuContent': {
