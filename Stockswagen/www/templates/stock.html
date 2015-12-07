@@ -4,7 +4,7 @@
       <div class="item item-text-wrap">
         <div class="row">
           <div class="col">
-            <h1 style="color: black;">{{quote.lastTradePriceOnly}}</h1> {{quote.lastTradeDate}}
+            <h1 style="color: black;">{{quote.lastTradePriceOnly | currency}}</h1> {{quote.lastTradeDate}}
           </div>
           <div class="col">
           </div>
@@ -16,7 +16,7 @@
         Open
       </div>
       <div class="col">
-        {{quote.open}}
+        {{quote.open | currency}}
       </div>
       <div class="col">
         MktCap
@@ -30,13 +30,13 @@
         High
       </div>
       <div class="col">
-        {{quote.daysHigh}}
+        {{quote.daysHigh | currency}}
       </div>
       <div class="col">
         52Wk High
       </div>
       <div class="col">
-        {{quote['52WeekHigh']}}
+        {{quote['52WeekHigh'] | currency}}
       </div>
     </div>
     <div class="row">
@@ -44,13 +44,13 @@
         Low
       </div>
       <div class="col">
-        {{quote.daysLow}}
+        {{quote.daysLow | currency}}
       </div>
       <div class="col">
         52Wk Low
       </div>
       <div class="col">
-        {{quote['52WeekLow']}}
+        {{quote['52WeekLow'] | currency}}
       </div>
     </div>
     <div class="row">

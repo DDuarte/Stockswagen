@@ -14,9 +14,10 @@
             <p>{{stock.name}}</p>
           </div>
           <div class="col text-right">
-            <h2>{{quotes[stock.tick].lastTradePriceOnly}}</h2>
+            <h2>{{quotes[stock.tick].lastTradePriceOnly | currency}}</h2>
             <p class="portfolio" ng-class="{'green': quotes[stock.tick].changeInPercent >= 0, 'red': quotes[stock.tick].changeInPercent < 0}">
-              {{presentNumber((quotes[stock.tick].changeAndPercentChange * 100).toFixed(2))}} {{(quotes[stock.tick].changeInPercent * 100).toFixed(2)}}%</p>
+              {{presentNumber((quotes[stock.tick].changeAndPercentChange * 100).toFixed(2))}} {{(quotes[stock.tick].changeInPercent * 100).toFixed(2)}}%
+            </p>
           </div>
         </div>
       </div>
