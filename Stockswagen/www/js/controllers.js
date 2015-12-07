@@ -1,6 +1,6 @@
 angular.module('starter.controllers', [])
 
-.controller('AppCtrl', function($scope) {
+.controller('AppCtrl', function($scope, Auth) {
 
   // With the new view caching in Ionic, Controllers are only called
   // when they are recreated or on app start, instead of every page change.
@@ -87,21 +87,6 @@ angular.module('starter.controllers', [])
       fabs[0].remove();
     }
   };
-})
-
-.controller('LoginCtrl', function($scope, $state, Auth) {
-
-  $scope.login = function(authMethod) {
-    Auth.$authWithOAuthRedirect(authMethod).then(function(authData) {
-    }).catch(function(error) {
-      if (error.code === 'TRANSPORT_UNAVAILABLE') {
-        Auth.$authWithOAuthPopup(authMethod).then(function(authData) {
-        });
-      } else {
-        console.log(error);
-      }
-    });
-  };
 
   Auth.$onAuth(function(authData) {
 
@@ -154,6 +139,21 @@ angular.module('starter.controllers', [])
 
     }
   });
+})
+
+.controller('LoginCtrl', function($scope, $rootScope, $state, Auth) {
+
+  $scope.login = function(authMethod) {
+    Auth.$authWithOAuthRedirect(authMethod).then(function(authData) {
+    }).catch(function(error) {
+      if (error.code === 'TRANSPORT_UNAVAILABLE') {
+        Auth.$authWithOAuthPopup(authMethod).then(function(authData) {
+        });
+      } else {
+        console.log(error);
+      }
+    });
+  };
 })
 
 .controller('PortfolioListCtrl', function($scope, $timeout, $ionicModal, Auth, Portfolio, Quotes) {
