@@ -160,8 +160,8 @@ angular.module('starter.controllers', [])
 .controller('PortfolioListCtrl', function($scope, $timeout, $ionicModal, Auth, Portfolio, Quotes, ionicMaterialMotion, ionicMaterialInk) {
   $scope.$parent.showHeader();
   $scope.$parent.clearFabs();
-  $scope.isExpanded = true;
-  $scope.$parent.setExpanded(true);
+  $scope.isExpanded = false;
+  $scope.$parent.setExpanded(false);
   $scope.$parent.setHeaderFab('right');
 
   $timeout(function() {
