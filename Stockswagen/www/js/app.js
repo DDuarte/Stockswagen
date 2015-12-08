@@ -31,6 +31,13 @@ angular.module('starter', ['ionic', 'firebase', 'ionic.service.core', 'ionic.ser
   }
 })
 
+.factory('HistoricalQuote', function($firebaseArray) {
+  return function(tickSymbol) {
+    var historicalQuoteRef = new Firebase('https://stockswagen.firebaseio.com/historicalQuotes');
+    return $firebaseArray(historicalQuoteRef.child(tickSymbol));
+  }
+})
+
 .run(function($rootScope, $state, $ionicPlatform, $ionicAnalytics) {
   $ionicPlatform.ready(function() {
 
