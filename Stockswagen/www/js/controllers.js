@@ -290,16 +290,9 @@ angular.module('starter.controllers', [])
       upperBound: entry.upperBound,
       name: entry.stock.name
     })
-    .then(function(newEntry) {
+    .then(function() {
 
-      $ionicPopup
-      .alert({
-        title: 'Success',
-        template: 'Your portfolio entry was created'
-      })
-      .then(function() {
-        $scope.closeAddStock();
-      });
+      $scope.closeAddStock();
 
     })
     .catch(function(error) {
