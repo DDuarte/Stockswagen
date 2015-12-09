@@ -330,18 +330,22 @@ angular.module('starter.controllers', [])
         $scope.chartConfig = {
           "options": {
             "chart": {
-              "type": "area"
+              "type": "line"
             }
           },
           "series": [
             {
               "name": $scope.quote.symbol,
               "data": $scope.historicalQuote.map(function (quoteElem) { return [moment(new Date(quoteElem.date)).valueOf(), quoteElem.close ]; }),
-              "type": "area",
-              "dashStyle": "Solid",
+              type: "line",
               tooltip: {
                 valueDecimals: 2
-              }
+              },
+              marker : {
+                enabled : true,
+                radius : 3
+              },
+              shadow : true
             }
           ],
           "title": {
@@ -354,7 +358,6 @@ angular.module('starter.controllers', [])
             selected : 1
           },
           "loading": false,
-          "size": {},
           "useHighStocks": true
         }
 
