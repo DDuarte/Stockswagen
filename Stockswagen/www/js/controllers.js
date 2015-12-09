@@ -106,6 +106,14 @@ angular.module('starter.controllers', [])
       });
     };
 
+    $scope.loginAnon = function() {
+      $rootScope.auth.$authAnonymously().then(function (authData) {
+
+      }).catch(function (error) {
+        console.log(error);
+      });
+    };
+
     $rootScope.auth.$onAuth(function (authData) {
 
       // This will display the user's name in our view
