@@ -48,6 +48,5 @@
   },
   "_source": "git://github.com/guylabs/ion-autocomplete.git",
   "_target": "~0.3.1",
-  "_originalSource": "ion-autocomplete",
-  "_direct": true
+  "_originalSource": "ion-autocomplete"
 }
