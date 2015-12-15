@@ -100,8 +100,8 @@ angular.module('starter.controllers', [])
         template: '<strong class="balanced-900 bold balanced-100-bg"><div class="loader"><svg class="circular"><circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10"></circle></svg></div></strong>'
       });
 
-      $rootScope.auth.$authWithOAuthPopup(authMethod).then(function (authData) {
-      }).catch(function (error) {
+      $rootScope.auth.$authWithOAuthPopup(authMethod)
+      .catch(function (error) {
         if (error.code === 'TRANSPORT_UNAVAILABLE') {
           $rootScope.auth.$authWithOAuthRedirect(authMethod).then(function (authData) {
           });
@@ -120,13 +120,18 @@ angular.module('starter.controllers', [])
         template: '<strong class="balanced-900 bold balanced-100-bg"><div class="loader"><svg class="circular"><circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10"></circle></svg></div></strong>'
       });
 
-      $rootScope.auth.$authAnonymously().then(function (authData) {
-      }).catch(function (error) {
-        console.log(error);
+      $rootScope.auth.$authAnonymously()
+      .catch(function (error) {
+        console.error(error);
+      })
+      .finally(function() {
+        $ionicLoading.hide();
       });
     };
 
     $rootScope.auth.$onAuth(function (authData) {
+
+      $ionicLoading.hide();
 
       // This will display the user's name in our view
       $scope.authData = authData;
