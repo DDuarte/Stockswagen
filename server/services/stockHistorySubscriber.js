@@ -35,7 +35,7 @@ class StockHistorySubscriber {
 
             let fetchDate = Moment().format();
             let stocksData = yield Finance.historical({
-                from: Moment().subtract(30, 'days').format(),
+                from: Moment().subtract(120, 'days').format(),
                 to: fetchDate,
                 symbols: stockSymbols
             });
