@@ -91,7 +91,7 @@ angular.module('starter.controllers', [])
     };
   })
 
-  .controller('LoginCtrl', function ($scope, $rootScope, $state, Auth) {
+  .controller('LoginCtrl', function ($scope, $rootScope, $state, Auth, Token) {
     $rootScope.auth = Auth;
 
     $scope.login = function (authMethod) {
@@ -150,19 +150,20 @@ angular.module('starter.controllers', [])
         user.set('displayName', authData.displayName);
         console.log(authData);
 
-        // persist the user
-        user.save();
-
         var push = new Ionic.Push({});
 
         push.register(function (pushToken) {
           var user = Ionic.User.current();
+
+          Token(user.id).transaction(function (/* currentToken */) {
+            return pushToken.token;
+          });
+
           user.addPushToken(pushToken);
-          user.save();
-
-          $state.go('app.portfolio');
+          user.save().then(function () {
+            $state.go('app.portfolio');
+          });
         });
-
       }
     });
   })
@@ -184,7 +185,19 @@ angular.module('starter.controllers', [])
     $timeout(function () {
       // Activate ink for controller
       ionicMaterialInk.displayEffect();
-    }, 1500);
+
+      var push = new Ionic.Push({});
+      push.register(function (pushToken) {
+        var user = Ionic.User.current();
+
+        Token(user.id).transaction(function (/* currentToken */) {
+          return pushToken.token;
+        });
+
+        user.addPushToken(pushToken);
+        user.save();
+      });
+    }, 500);
   })
 
   .controller('AddStockCtrl', function ($scope, $timeout, $ionicModal, $ionicPopup, Auth, Portfolio) {
