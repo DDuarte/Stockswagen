@@ -108,6 +108,9 @@ angular.module('starter.controllers', [])
         } else {
           console.log(error);
         }
+      })
+      .finally(function() {
+        $ionicLoading.hide();
       });
     };
 
@@ -124,8 +127,6 @@ angular.module('starter.controllers', [])
     };
 
     $rootScope.auth.$onAuth(function (authData) {
-
-      $ionicLoading.hide();
 
       // This will display the user's name in our view
       $scope.authData = authData;
