@@ -374,7 +374,7 @@ angular.module('starter.controllers', [])
 
   })
 
-  .controller('ProfileCtrl', function ($scope, $rootScope, $stateParams, $timeout, $state, Auth) {
+  .controller('ProfileCtrl', function ($scope, $rootScope, $stateParams, $timeout, $state, $window, $ionicHistory) {
     // Set Header
     $scope.$parent.showHeader();
     $scope.$parent.clearFabs();
@@ -385,6 +385,9 @@ angular.module('starter.controllers', [])
     $scope.logout = function () {
       $rootScope.authData = null;
       $rootScope.auth.$unauth();
+      $window.localStorage.clear();
+      $ionicHistory.clearCache();
+      $ionicHistory.clearHistory();
       $state.go('login');
     }
   });
