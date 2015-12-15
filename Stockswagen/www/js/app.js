@@ -70,7 +70,8 @@ angular.module('starter', ['ionic', 'firebase', 'ionic.service.core', 'ionic.ser
 })
 
 .config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
-  // $ionicConfigProvider.views.maxCache(0);
+  $ionicConfigProvider.views.maxCache(0);
+  $ionicConfigProvider.scrolling.jsScrolling(false);
 
   $stateProvider
 
