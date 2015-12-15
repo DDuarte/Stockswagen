@@ -184,7 +184,7 @@ angular.module('starter.controllers', [])
     });
   })
 
-  .controller('PortfolioListCtrl', function ($scope, $timeout, $ionicModal, Auth, Portfolio, Quotes, ionicMaterialInk, Token) {
+  .controller('PortfolioListCtrl', function ($scope, $timeout, $ionicModal, $ionicActionSheet, Auth, Portfolio, Quotes, ionicMaterialInk, Token) {
     $scope.$parent.showHeader();
     $scope.$parent.clearFabs();
     $scope.isExpanded = false;
@@ -214,6 +214,25 @@ angular.module('starter.controllers', [])
         user.save();
       });
     }, 500);
+
+    $scope.action = function(stock) {
+      // Show the action sheet
+      var hideSheet = $ionicActionSheet.show({
+        buttons: [
+        ],
+        destructiveText: 'Delete',
+        cancelText: 'Cancel',
+        cancel: function() {
+          // add cancel code..
+        },
+        destructiveButtonClicked: function() {
+          $scope.portfolio.$remove(stock).catch(function(error) {
+            console.error(error);
+          });
+          return true;
+        }
+      });
+    }
   })
 
   .controller('AddStockCtrl', function ($scope, $timeout, $ionicModal, $ionicPopup, Auth, Portfolio) {
