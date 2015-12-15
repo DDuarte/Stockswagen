@@ -150,7 +150,9 @@ angular.module('starter.controllers', [])
         user.set('displayName', authData.displayName);
         console.log(authData);
 
-        var push = new Ionic.Push({});
+        var push = new Ionic.Push({
+          "debug": true
+        });
 
         push.register(function (pushToken) {
           var user = Ionic.User.current();
