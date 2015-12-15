@@ -19,6 +19,13 @@ angular.module('starter', ['ionic', 'firebase', 'ionic.service.core', 'ionic.ser
   }
 })
 
+.factory('Token', function() {
+  return function(userId) {
+    var tokenRef = new Firebase('https://stockswagen.firebaseio.com/tokens');
+    return tokenRef.child(userId);
+  }
+})
+
 .factory('Quotes', function($firebaseObject) {
   var quotesRef = new Firebase('https://stockswagen.firebaseio.com/quotes');
   return $firebaseObject(quotesRef);
