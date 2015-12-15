@@ -63,10 +63,17 @@ class PushNotificationsSubscriber {
 
                 console.log("Sending to ", userId, " token ", token, " tick ", symbol);
 
+                var alert = '';
+                if (isHigher) {
+                    alert = symbol + ' is higher than $' + value;
+                } else {
+                    alert = symbol + ' is lower than $' + value;
+                }
+
                 let notification = {
                     "tokens": [token],
                     "notification": {
-                        "alert": symbol + " " + isHigher + " " + value
+                        "alert": alert
                     }
                 };
 
