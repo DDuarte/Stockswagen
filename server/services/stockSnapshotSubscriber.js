@@ -42,8 +42,7 @@ class StockSnapshotSubscriber {
                 updates.push(Quotes.child(data.symbol).set( data ));
             });
 
-            let result = yield updates;
-            return result;
+            return yield updates;
         })
         .catch((error) => {
             console.error('Error in StockSnapshotSubscriber:', error);

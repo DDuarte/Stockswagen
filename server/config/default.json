@@ -4,11 +4,17 @@
     "collections": {
       "portfolios": "https://stockswagen.firebaseio.com/portfolios",
       "quotes": "https://stockswagen.firebaseio.com/quotes",
-      "historicalQuotes": "https://stockswagen.firebaseio.com/historicalQuotes"
+      "historicalQuotes": "https://stockswagen.firebaseio.com/historicalQuotes",
+      "tokens": "https://stockswagen.firebaseio.com/tokens"
     }
+  },
+  "ionic": {
+    "appId" : "dbd68926",
+    "apiSecret" : "4e125bd07cb38db2077d6121190f2a9b339089d734aba7cd"
   },
   "schedules": {
     "quotes": "every 1 mins",
+    "pushNotifications": "every 5 seconds",
     "historicalQuotes": "every 5 mins"
   }
 }

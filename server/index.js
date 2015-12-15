@@ -1,15 +1,18 @@
 'use strict';
 
 const Koa = require('koa'),
-      app = Koa();
+      app = Koa(),
+      config = require('config');
 
 const StockHistorySubscriber = require('./services/stockHistorySubscriber'),
-      StockSnapshotSubscriber = require('./services/stockSnapshotSubscriber');
+      StockSnapshotSubscriber = require('./services/stockSnapshotSubscriber'),
+      PushNotificationsSubscriber = require('./services/pushNotificationsSubscriber');
 
-let historicalTimer, snapshotTimer;
+let historicalTimer, snapshotTimer, notificationsTimer;
 try {
-    historicalTimer = StockHistorySubscriber.schedule(require('config').schedules.historicalQuotes);
-    snapshotTimer = StockSnapshotSubscriber.schedule(require('config').schedules.quotes);
+    historicalTimer = StockHistorySubscriber.schedule(config.schedules.historicalQuotes);
+    snapshotTimer = StockSnapshotSubscriber.schedule(config.schedules.quotes);
+    notificationsTimer = PushNotificationsSubscriber.schedule(config.schedules.pushNotifications);
 } catch(err) {
     console.error("Error in stock subscription service:", err);
 }

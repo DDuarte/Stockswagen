@@ -28,6 +28,7 @@
     "config": "^1.17.1",
     "firebase": "~2.3.2",
     "fireproof": "~3.1.0",
+    "ionic-push-server": "https://github.com/benrondeau/Ionic-Push-Notification-NodeJS-Server",
     "koa": "~1.1.2",
     "koa-gzip": "~0.1.0",
     "koa-router": "~5.3.0",
