@@ -28,25 +28,25 @@
           higher than a <strong>maximum value</strong>.
         </div>
         <label class="toggle toggle-positive">
-          <input type="checkbox" ng-model="subscription">
+          <input type="checkbox" ng-model="form.subscription">
           <div class="track">
             <div class="handle"></div>
           </div>
         </label>
       </label>
-      <label class="item item-input" ng-if="subscription === true">
+      <label class="item item-input" ng-if="form.subscription === true">
         <span class="input-label">Minimum Value</span>
         <i class="icon ion-social-usd placeholder-icon"></i>
-        <input type="number" ng-model="lowerBound">
+        <input type="number" ng-model="form.lowerBound">
       </label>
-      <label class="item item-input" ng-if="subscription === true">
+      <label class="item item-input" ng-if="form.subscription === true">
         <span class="input-label">Maximum Value</span>
         <i class="icon ion-social-usd placeholder-icon"></i>
-        <input type="number" ng-model="upperBound">
+        <input type="number" ng-model="form.upperBound">
       </label>
       <div class="padding">
-        <button ng-click="createPortfolioEntry({ stock: selectedStock[0], subscription: subscription, lowerBound: lowerBound, upperBound: upperBound})"
-                ng-disabled="!selectedStock || (subscription === true && lowerBound >= upperBound)"
+        <button ng-click="createPortfolioEntry({ stock: selectedStock[0], subscription: form.subscription, lowerBound: form.lowerBound, upperBound: form.upperBound})"
+                ng-disabled="!selectedStock || (form.subscription === true && form.lowerBound >= form.upperBound)"
                 class="button button-block button-positive waves-effect waves-button waves-light">Submit</button>
       </div>
     </form>

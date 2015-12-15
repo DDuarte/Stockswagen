@@ -168,7 +168,7 @@ angular.module('starter.controllers', [])
     });
   })
 
-  .controller('PortfolioListCtrl', function ($scope, $timeout, $ionicModal, Auth, Portfolio, Quotes, ionicMaterialInk) {
+  .controller('PortfolioListCtrl', function ($scope, $timeout, $ionicModal, Auth, Portfolio, Quotes, ionicMaterialInk, Token) {
     $scope.$parent.showHeader();
     $scope.$parent.clearFabs();
     $scope.isExpanded = false;
@@ -205,9 +205,11 @@ angular.module('starter.controllers', [])
       document.getElementById('fab-portfolio').classList.toggle('on');
     }, 200);
 
-    $scope.lowerBound = 50;
-    $scope.upperBound = 100;
-    $scope.subscription = false;
+    $scope.form = {
+      lowerBound: 50,
+      upperBound: 100,
+      subscription: false
+    };
 
     $ionicModal.fromTemplateUrl('templates/addStock.html', {
       scope: $scope
