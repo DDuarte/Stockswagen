@@ -133,6 +133,9 @@ angular.module('starter.controllers', [])
         } else if (authData.google) {
           authData.profileImageURL = authData.google.profileImageURL;
           authData.displayName = authData.google.displayName;
+        } else if (authData.anonymous) {
+          authData.profileImageURL = 'https://ionic-apps.s3.amazonaws.com/img/users/users-default-avatar@2x.png';
+          authData.displayName = 'Demo User';
         }
 
         // kick off the platform web client
