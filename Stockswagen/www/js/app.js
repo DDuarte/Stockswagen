@@ -107,7 +107,8 @@ angular.module('starter', ['ionic', 'firebase', 'ionic.service.core', 'ionic.ser
         controller: 'StockCtrl'
       },
       'fabContent': {
-        template: ''
+        template: '<button id="fab-portfolio" style="display: none;" class="button button-fab button-fab-bottom-right expanded button-energized-900 spin"> </button>',
+        controller: 'StockCtrl'
       }
     }
   })

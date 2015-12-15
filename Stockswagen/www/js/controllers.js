@@ -326,7 +326,6 @@ angular.module('starter.controllers', [])
     $scope.isExpanded = false;
     $scope.$parent.setExpanded(false);
     $scope.$parent.setHeaderFab(false);
-    $scope.$parent.hideNavButtons();
 
     $scope.quote = Quote($stateParams.tick);
     $scope.historicalQuote = HistoricalQuote($stateParams.tick);
