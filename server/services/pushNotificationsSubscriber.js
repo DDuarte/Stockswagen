@@ -41,9 +41,9 @@ class PushNotificationsSubscriber {
                     let price = quote.lastTradePriceOnly;
 
                     if (price < sub.lowerBound) {
-                        PushNotificationsSubscriber.sendNotification(key, tick, false, price);
+                        PushNotificationsSubscriber.sendNotification(key, tick, false, price, sub.lowerBound);
                     } else if (price > sub.upperBound) {
-                        PushNotificationsSubscriber.sendNotification(key, tick, true, price);
+                        PushNotificationsSubscriber.sendNotification(key, tick, true, price, sub.upperBound);
                     }
                 });
             });
@@ -53,7 +53,7 @@ class PushNotificationsSubscriber {
         });
     }
 
-    static sendNotification(userId, symbol, isHigher, value) {
+    static sendNotification(userId, symbol, isHigher, value, bound) {
 
         TokensRef.once('value', (snapshot) => {
             let tokenSnapshot = snapshot.child(userId);
@@ -65,9 +65,9 @@ class PushNotificationsSubscriber {
 
                 var alert = '';
                 if (isHigher) {
-                    alert = symbol + ' is higher than $' + value;
+                    alert = symbol + ' is higher than $' + bound + ' ($' + value + ')';
                 } else {
-                    alert = symbol + ' is lower than $' + value;
+                    alert = symbol + ' is lower than $' + bound + ' ($' + value + ')';
                 }
 
                 let notification = {
